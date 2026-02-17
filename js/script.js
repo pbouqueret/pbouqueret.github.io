@@ -20,7 +20,7 @@ const observer = new IntersectionObserver((entries) => {
 // Applique l'animation à toutes les sections
 document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section');
-  
+
   sections.forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(50px)';
@@ -39,16 +39,16 @@ const sections = document.querySelectorAll('section');
 
 const updateActiveNav = () => {
   let currentSection = '';
-  
+
   sections.forEach(section => {
     const sectionTop = section.offsetTop;
     const sectionHeight = section.clientHeight;
-    
+
     if (window.scrollY >= sectionTop - 200) {
       currentSection = section.getAttribute('id');
     }
   });
-  
+
   navLinks.forEach(link => {
     link.classList.remove('active');
     if (link.getAttribute('href') === `#${currentSection}`) {
@@ -66,7 +66,7 @@ window.addEventListener('scroll', updateActiveNav);
 const typeWriter = (element, text, speed = 100) => {
   let i = 0;
   element.textContent = '';
-  
+
   const type = () => {
     if (i < text.length) {
       element.textContent += text.charAt(i);
@@ -74,7 +74,7 @@ const typeWriter = (element, text, speed = 100) => {
       setTimeout(type, speed);
     }
   };
-  
+
   type();
 };
 
@@ -115,14 +115,14 @@ const createScrollTopButton = () => {
     z-index: 999;
     box-shadow: 0 5px 20px rgba(168, 216, 234, 0.4);
   `;
-  
+
   button.addEventListener('click', () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   });
-  
+
   document.body.appendChild(button);
   return button;
 };
@@ -362,7 +362,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
-    
+
     if (target) {
       target.scrollIntoView({
         behavior: 'smooth',
@@ -377,7 +377,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ========================================
 
 const cvModal = document.getElementById('cv-modal');
-const cvLink = document.querySelector('.social-sidebar a[href*="CV PAUL.png"]:not([href^="mailto"])');
+const cvLink = document.querySelector('.social-sidebar a[href*="CVPaulBouqueret.png"]:not([href^="mailto"])');
 const modalClose = document.querySelector('.modal-close');
 const modalOverlay = document.querySelector('.modal-overlay');
 
@@ -454,7 +454,39 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ========================================
-// 13. EFFET NEIGE - PETITS POINTS BLANCS
+// 13. MODAL FIGHT ATLAS (EN SAVOIR PLUS)
+// ========================================
+
+const faModal = document.getElementById('fight-atlas-modal');
+const faBtn = document.querySelector('.project-link.details-btn[data-details="fight-atlas"]');
+// Reuse existing modal logic structure where possible, but keep specific ID selectors for clarity
+
+if (faBtn && faModal) {
+  faBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    faModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close logic
+  const faCloses = faModal.querySelectorAll('.modal-close, .modal-overlay');
+  faCloses.forEach(el => {
+    el.addEventListener('click', () => {
+      faModal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && faModal.classList.contains('active')) {
+      faModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+// ========================================
+// 14. EFFET NEIGE - PETITS POINTS BLANCS
 // ========================================
 
 function createSnowfall() {
@@ -531,3 +563,73 @@ window.addEventListener('load', () => {
 });
 
 console.log('🚀 Portfolio chargé avec succès !');
+
+// ========================================
+// 15. MODAL BOUSTOCK (EN SAVOIR PLUS)
+// ========================================
+
+const boustockModal = document.getElementById('boustock-modal');
+const boustockBtn = document.querySelector('.project-link.details-btn[data-details="boustock"]');
+
+if (boustockBtn && boustockModal) {
+  boustockBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    boustockModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const boustockCloses = boustockModal.querySelectorAll('.modal-close, .modal-overlay');
+  boustockCloses.forEach(el => {
+    el.addEventListener('click', () => {
+      boustockModal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && boustockModal.classList.contains('active')) {
+      boustockModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+// ========================================
+// 16. MODAL BOUSTOCK DÉMO
+// ========================================
+
+const boustockDemoModal = document.getElementById('boustock-demo-modal');
+const boustockDemoBtn = document.querySelector('.project-link.demo-btn[data-demo="boustock"]');
+const boustockVideo = document.getElementById('boustock-video');
+
+if (boustockDemoBtn && boustockDemoModal) {
+  boustockDemoBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    boustockDemoModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+}
+
+function closeBoustockDemoModal() {
+  if (boustockDemoModal) {
+    boustockDemoModal.classList.remove('active');
+    document.body.style.overflow = '';
+    if (boustockVideo) {
+      boustockVideo.pause();
+      boustockVideo.currentTime = 0;
+    }
+  }
+}
+
+if (boustockDemoModal) {
+  const boustockDemoCloses = boustockDemoModal.querySelectorAll('.modal-close, .modal-overlay');
+  boustockDemoCloses.forEach(element => {
+    element.addEventListener('click', closeBoustockDemoModal);
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && boustockDemoModal && boustockDemoModal.classList.contains('active')) {
+    closeBoustockDemoModal();
+  }
+});
