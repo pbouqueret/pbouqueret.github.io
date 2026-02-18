@@ -611,6 +611,17 @@ section h2 {
 .modal-video {
   max-width: 95%;
   max-height: 95vh;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.modal-video h2 {
+  flex-shrink: 0;
+  margin-bottom: 1rem;
 }
 
 .video-container {
@@ -619,16 +630,25 @@ section h2 {
   align-items: center;
   background: rgba(10, 25, 41, 0.5);
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0;
   border: 1px solid rgba(168, 216, 234, 0.2);
+  flex: 0 1 auto;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
 }
 
 #demo-video,
-#boustock-video {
+#boustock-video,
+#fight-atlas-video {
+  width: auto;
+  height: auto;
   max-width: 100%;
-  max-height: 75vh;
+  max-height: 80vh;
   border-radius: 0.5rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  object-fit: contain;
 }
 
 /* Section Compétences - Badges */

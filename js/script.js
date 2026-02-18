@@ -419,12 +419,13 @@ document.addEventListener('keydown', (e) => {
 // ========================================
 
 const demoModal = document.getElementById('demo-modal');
-const demoBtn = document.querySelector('.demo-btn');
+const demoBtn = document.querySelector('.project-link.demo-btn[data-demo="groupie-tracker"]');
 const demoVideo = document.getElementById('demo-video');
 
 // Ouvrir la modal vidéo au clic sur le bouton démo
 if (demoBtn) {
-  demoBtn.addEventListener('click', () => {
+  demoBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     demoModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   });
