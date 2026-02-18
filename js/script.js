@@ -633,3 +633,43 @@ document.addEventListener('keydown', (e) => {
     closeBoustockDemoModal();
   }
 });
+
+// ========================================
+// 17. MODAL FIGHT ATLAS DÉMO
+// ========================================
+
+const faDemoModal = document.getElementById('fight-atlas-demo-modal');
+const faDemoBtn = document.querySelector('.project-link.demo-btn[data-demo="fight-atlas"]');
+const faVideo = document.getElementById('fight-atlas-video');
+
+if (faDemoBtn && faDemoModal) {
+  faDemoBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    faDemoModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+}
+
+function closeFaDemoModal() {
+  if (faDemoModal) {
+    faDemoModal.classList.remove('active');
+    document.body.style.overflow = '';
+    if (faVideo) {
+      faVideo.pause();
+      faVideo.currentTime = 0;
+    }
+  }
+}
+
+if (faDemoModal) {
+  const faDemoCloses = faDemoModal.querySelectorAll('.modal-close, .modal-overlay');
+  faDemoCloses.forEach(element => {
+    element.addEventListener('click', closeFaDemoModal);
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && faDemoModal && faDemoModal.classList.contains('active')) {
+    closeFaDemoModal();
+  }
+});
